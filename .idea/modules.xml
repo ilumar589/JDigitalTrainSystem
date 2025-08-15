@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/JDigitalTrainSystem.iml" filepath="$PROJECT_DIR$/JDigitalTrainSystem.iml" />
+      <module fileurl="file://$PROJECT_DIR$/cctv-ui/cctv-ui.iml" filepath="$PROJECT_DIR$/cctv-ui/cctv-ui.iml" />
+    </modules>
+  </component>
+</project>
