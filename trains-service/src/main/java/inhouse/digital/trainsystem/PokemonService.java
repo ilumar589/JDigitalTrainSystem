@@ -13,6 +13,7 @@ import io.helidon.webserver.http.ServerResponse;
 import jakarta.json.*;
 
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public final class PokemonService implements HttpService {
 
@@ -63,6 +64,7 @@ public final class PokemonService implements HttpService {
     }
 
     private void listTypes(ServerRequest request, ServerResponse response) {
+
         JsonArray jsonArray = dbClient.execute()
                 .namedQuery("select-all-types")
                 .map(row -> row.as(JsonObject.class))
@@ -73,7 +75,7 @@ public final class PokemonService implements HttpService {
     }
 
     private void init() {
-//        deleteData();
+        resetDb();
         if (initSchema) {
             initSchema();
         }
@@ -82,40 +84,52 @@ public final class PokemonService implements HttpService {
         }
     }
 
+    private void resetDb() {
+        final DbExecute exec = dbClient.execute();
+        exec.namedDml("drop-schema-and-recreate");
+    }
+
     private void initData() {
         final DbTransaction tx = dbClient.transaction();
         try {
             initTypes(tx);
             initPokemons(tx);
+            tx.commit();
         } catch (Exception e) {
             tx.rollback();
             throw e;
         }
     }
 
-    private static void initPokemons(DbTransaction tx) {
+    private static void initPokemons(DbExecute tx) {
         try (final var reader = Json.createReader(PokemonService.class.getResourceAsStream("/pokemons.json"))) {
             final JsonArray pokemons = reader.readArray();
             for (JsonValue pokemonValue : pokemons) {
                 final JsonObject pokemon = pokemonValue.asJsonObject();
-                tx.namedInsert(
-                        "insert-pokemon",
-                        pokemon.getInt("id"),
-                        pokemon.getString("name"),
-                        pokemon.getInt("idType"));
+                try {
+                    tx.namedInsert(
+                            "insert-pokemon",
+                            pokemon.getString("name"),
+                            pokemon.getInt("idType"));
+                } catch (Exception e) {
+                    LOGGER.log(System.Logger.Level.ERROR, "Could not insert pokemon " + pokemon.getString("name"), e);
+                }
             }
         }
     }
 
-    private static void initTypes(DbTransaction tx) {
+    private static void initTypes(DbExecute tx) {
         try (final var reader = Json.createReader(PokemonService.class.getResourceAsStream("/pokemon-types.json"))) {
             final JsonArray types = reader.readArray();
             for (JsonValue typeValue : types) {
                 final JsonObject type = typeValue.asJsonObject();
-                tx.namedInsert(
-                        "insert-type",
-                        type.getInt("id"),
-                        type.getString("name"));
+                try {
+                    tx.namedInsert(
+                            "insert-type",
+                            type.getString("name"));
+                } catch (Exception e) {
+                    LOGGER.log(System.Logger.Level.ERROR, "Could not insert type " + type.getString("name"), e);
+                }
             }
         }
     }
