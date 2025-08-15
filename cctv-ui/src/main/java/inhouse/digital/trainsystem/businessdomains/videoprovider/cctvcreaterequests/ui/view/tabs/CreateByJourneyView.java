@@ -1,4 +1,4 @@
-package inhouse.digital.trainsystem.cctvcreaterequests.ui.view.tabs;
+package inhouse.digital.trainsystem.businessdomains.videoprovider.cctvcreaterequests.ui.view.tabs;
 
 import com.vaadin.flow.component.AbstractField;
 import com.vaadin.flow.component.Text;
@@ -8,7 +8,7 @@ import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import inhouse.digital.trainsystem.cctvcreaterequests.ui.mockdata.MockDataFactory;
+import inhouse.digital.trainsystem.businessdomains.videoprovider.cctvcreaterequests.ui.mockdata.MockDataFactory;
 
 import java.time.LocalDate;
 

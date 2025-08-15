@@ -1,4 +1,4 @@
-package inhouse.digital.trainsystem.cctvcreaterequests.ui.view;
+package inhouse.digital.trainsystem.businessdomains.videoprovider.cctvcreaterequests.ui.view;
 
 import com.vaadin.flow.component.Text;
 import com.vaadin.flow.component.html.Div;
@@ -8,7 +8,7 @@ import com.vaadin.flow.router.Menu;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import inhouse.digital.trainsystem.base.ui.component.ViewToolbar;
-import inhouse.digital.trainsystem.cctvcreaterequests.ui.view.tabs.CreateByJourneyView;
+import inhouse.digital.trainsystem.businessdomains.videoprovider.cctvcreaterequests.ui.view.tabs.CreateByJourneyView;
 import jakarta.annotation.security.PermitAll;
 
 @Route("cctv-create-request")

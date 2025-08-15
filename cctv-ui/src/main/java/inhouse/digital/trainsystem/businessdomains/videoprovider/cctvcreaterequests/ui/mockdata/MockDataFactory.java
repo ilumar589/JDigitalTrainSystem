@@ -1,4 +1,4 @@
-package inhouse.digital.trainsystem.cctvcreaterequests.ui.mockdata;
+package inhouse.digital.trainsystem.businessdomains.videoprovider.cctvcreaterequests.ui.mockdata;
 
 import org.eclipse.collections.api.factory.Lists;
 import org.eclipse.collections.api.list.ImmutableList;
