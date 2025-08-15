@@ -35,10 +35,16 @@ public class Main {
         final WebServer server = WebServer.builder()
                 .config(config.get("server"))
                 .addFeature(observe)
+                .routing(Main::routing)
+                .build()
+                .start();
+
+        System.out.println("Server started at http://localhost:" + server.port());
 
     }
 
     static void routing(HttpRouting.Builder routing) {
-
+        routing
+                .register("/db", new PokemonService());
     }
 }

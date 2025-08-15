@@ -1,10 +1,11 @@
 server:
   port: 8080
-  host: 0.0.0.0
+  host: localhost
   features:
     security:
+      enabled: false
       defaults:
-        authenticate: false
+        authenticate: true
       web-server:
         # protected paths on the web server - do not include paths served by Jersey, as those are protected directly
         paths:
@@ -18,9 +19,9 @@ tracing:
 db:
   source: jdbc
   connection:
-    url: jdbc:mysql://127.0.0.1:3306/pokemon?useSSL=false
-    username: user
-    password: changeit
+    url: jdbc:postgresql://localhost:9999/appdb?useSSL=false
+    username: admin
+    password: adminpass
     initializationFailTimeout: -1
     connectionTimeout: 2000
   health-check:
