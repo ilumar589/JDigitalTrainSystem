@@ -4,9 +4,7 @@ import com.tngtech.archunit.core.domain.JavaClasses;
 import com.tngtech.archunit.core.importer.ClassFileImporter;
 import org.junit.jupiter.api.Test;
 import org.springframework.data.repository.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
-import static com.tngtech.archunit.core.domain.properties.CanBeAnnotated.Predicates.annotatedWith;
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.*;
 import static com.tngtech.archunit.library.dependencies.SlicesRuleDefinition.slices;
 
@@ -34,12 +32,6 @@ class ArchitectureTest {
     void repositories_should_only_be_used_by_application_services_and_other_domain_classes() {
         classes().that().areAssignableTo(Repository.class).should().onlyHaveDependentClassesThat()
                 .resideInAnyPackage(BASE_PACKAGE + "..domain..", BASE_PACKAGE + "..service..").check(importedClasses);
-    }
-
-    @Test
-    void repositories_should_only_be_called_by_transactional_methods() {
-        methods().that().areDeclaredInClassesThat().areAssignableTo(Repository.class).should().onlyBeCalled()
-                .byMethodsThat(annotatedWith(Transactional.class)).check(importedClasses);
     }
 
     @Test

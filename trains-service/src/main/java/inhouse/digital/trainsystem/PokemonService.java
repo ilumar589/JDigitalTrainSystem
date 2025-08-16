@@ -13,7 +13,6 @@ import io.helidon.webserver.http.ServerResponse;
 import jakarta.json.*;
 
 import java.util.Map;
-import java.util.stream.Collectors;
 
 public final class PokemonService implements HttpService {
 

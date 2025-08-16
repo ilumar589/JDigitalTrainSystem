@@ -141,3 +141,26 @@ services:
       interval: 10s
       timeout: 5s
       retries: 30
+
+# ---------- trains-service (build using Dockerfile.native) ----------
+  trains-service:
+    container_name: trains-service
+    build:
+      context: ../../trains-service
+      dockerfile: Dockerfile.native
+    depends_on:
+      - pgpool
+    networks: [pgnet]
+    ports:
+      - "8080:8080"
+
+
+# ---------- cctv-ui (build using Dockerfile) ----------
+  cctv-ui:
+    container_name: cctv-ui
+    build:
+      context: ../../cctv-ui
+      dockerfile: Dockerfile
+    networks: [pgnet]
+    ports:
+      - "8081:8080"
