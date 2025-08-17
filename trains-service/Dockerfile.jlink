@@ -1,6 +1,6 @@
 
 # 1st stage, build the app
-FROM ghcr.io/graalvm/graalvm-community:latest as build
+FROM container-registry.oracle.com/java/jdk-no-fee-term:24 as build
 
 WORKDIR /usr/share
 

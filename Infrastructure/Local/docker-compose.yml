@@ -147,7 +147,7 @@ services:
     container_name: trains-service
     build:
       context: ../../trains-service
-      dockerfile: Dockerfile.native
+      dockerfile: Dockerfile
     depends_on:
       - pgpool
     networks: [pgnet]
