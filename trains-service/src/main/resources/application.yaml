@@ -1,6 +1,6 @@
 server:
   port: 8080
-  host: localhost
+  host: 0.0.0.0
   features:
     security:
       enabled: false
@@ -19,7 +19,8 @@ tracing:
 db:
   source: jdbc
   connection:
-    url: jdbc:postgresql://localhost:9999/appdb?useSSL=false
+#    url: jdbc:postgresql://localhost:9999/appdb?useSSL=false
+    url: jdbc:postgresql://pgpool:5432/appdb?useSSL=false
     username: admin
     password: adminpass
     initializationFailTimeout: -1

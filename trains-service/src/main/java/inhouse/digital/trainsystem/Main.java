@@ -7,6 +7,8 @@ import io.helidon.dbclient.health.DbClientHealthCheck;
 import io.helidon.logging.common.LogConfig;
 import io.helidon.webserver.WebServer;
 import io.helidon.webserver.http.HttpRouting;
+import io.helidon.webserver.http.HttpRules;
+import io.helidon.webserver.http.HttpService;
 import io.helidon.webserver.observe.ObserveFeature;
 import io.helidon.webserver.observe.health.HealthObserver;
 
@@ -39,12 +41,16 @@ public class Main {
                 .build()
                 .start();
 
-        System.out.println("Server started at http://localhost:" + server.port());
-
     }
 
     static void routing(HttpRouting.Builder routing) {
         routing
+                .register("/", new HttpService() {
+                    @Override
+                    public void routing(HttpRules httpRules) {
+                        httpRules.get("/", (req, res) -> res.send("Hello World!"));
+                    }
+                })
                 .register("/db", new PokemonService());
     }
 }
